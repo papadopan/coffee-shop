@@ -28,7 +28,6 @@ export const resolvers = {
   },
   User: {
     __resolveType(user){
-      console.log(user)
       if(user.id) return "Waiter"
       return "Cook"
     }
