@@ -1,0 +1,16 @@
+{
+  "name": "coffee-shop-graphql",
+  "version": "1.0.0",
+  "description": "A coffee shop backend system implemented with graphql",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "papadopan",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-server-express": "^3.3.0",
+    "express": "^4.17.1",
+    "graphql": "^15.5.1"
+  }
+}
