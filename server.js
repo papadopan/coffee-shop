@@ -4,24 +4,23 @@ import { loadSchema } from '@graphql-tools/load';
 import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader';
 import express from "express"
 import http from "http"
-
-import { execute, subscribe } from 'graphql';
-import { SubscriptionServer } from 'subscriptions-transport-ws';
+import {  upperDirectiveTransformer } from './directives/directives.js'
 import { makeExecutableSchema } from '@graphql-tools/schema';
 
 
-const typeDefs = await loadSchema('./schemas/schema.graphql', {  // load from a single schema file
-  loaders: [
-      new GraphQLFileLoader()
-  ]
-});
-// const schema = makeExecutableSchema(typeDefs, resolvers)
 
 export async function startApolloServer() {
   const app = express()
   const httpServer = http.createServer(app)
+  const typeDefs = await loadSchema('./schemas/schema.graphql', {  // load from a single schema file
+    loaders: [
+        new GraphQLFileLoader()
+    ]
+  });
 
-  const server = new ApolloServer({ typeDefs, resolvers });
+  let schema = makeExecutableSchema({typeDefs, resolvers})
+  schema = upperDirectiveTransformer(schema, "upper")
+  const server = new ApolloServer({ schema });
   await server.start();
   server.applyMiddleware({app})
 

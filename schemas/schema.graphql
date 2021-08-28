@@ -1,9 +1,11 @@
+  directive @upper(message: String = "whatev") on FIELD_DEFINITION
+
   interface User {
     name: String!
   }
 
   type Waiter implements User {
-    name: String!
+    name: String! @upper(message:"Show me the name")
     id: String!
   }
 
