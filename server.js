@@ -1,66 +1,31 @@
-import { ApolloServer, gql } from 'apollo-server';
+import { ApolloServer } from 'apollo-server-express';
 import { resolvers } from './resolvers/index.js';
 import { loadSchema } from '@graphql-tools/load';
 import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader';
+import express from "express"
+import http from "http"
+
+import { execute, subscribe } from 'graphql';
+import { SubscriptionServer } from 'subscriptions-transport-ws';
+import { makeExecutableSchema } from '@graphql-tools/schema';
 
 
-
-export async function startApolloServer() {
-//   const typeDefs = gql`
-//   interface User {
-//     name: String!
-//   }
-
-//   type Waiter implements User {
-//     name: String!
-//     id: String!
-//   }
-
-//   input waiterInput {
-//     name: String!
-//     id: String!
-//   }
-
-//   type Cook implements User {
-//     name: String!
-//     recipes: [Recipe]!
-//   }
-
-//   input cookInput {
-//     name: String!
-//     recipes:[recipeInput]!
-//   }
-
-//   input recipeInput {
-//     name: String
-//     time: String
-//   }
-
-//   type Recipe {
-//     name: String
-//     time: String
-//     cook: Cook!
-//   }
-
-//   type Query {
-//     cooks: [Cook]!
-//     waiters: [Waiter]!
-//     users: [User]!
-//   }
-
-//   type Mutation{
-//     addCook(input: cookInput): Cook!
-//     addWaiter(input: waiterInput): Waiter!
-//   }
-
-// `;
 const typeDefs = await loadSchema('./schemas/schema.graphql', {  // load from a single schema file
   loaders: [
       new GraphQLFileLoader()
   ]
 });
-  const server = new ApolloServer({ typeDefs, resolvers});
-  const { url } = await server.listen();
 
-  console.log(`🚀 Server ready at ${url}`);
+const schema = makeExecutableSchema(typeDefs, resolvers)
+export async function startApolloServer() {
+  const app = express()
+  const httpServer = http.createServer(app)
+
+  const server = new ApolloServer({ schema});
+  await server.start();
+  server.applyMiddleware({app})
+
+  await new Promise(res=> httpServer.listen({port:4000 }, res))
+
+  console.log(`🚀 Server ready at 4000`);
 }

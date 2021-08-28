@@ -43,3 +43,7 @@ interface User {
     addCook(input: cookInput): Cook!
     addWaiter(input: waiterInput): Waiter!
   }
+
+  type Subscription {
+    newCook: Cook
+  }

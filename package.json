@@ -13,10 +13,14 @@
   "dependencies": {
     "@graphql-tools/graphql-file-loader": "^7.0.6",
     "@graphql-tools/load": "^7.1.9",
+    "@graphql-tools/schema": "^8.1.2",
     "apollo-server": "^3.3.0",
     "apollo-server-express": "^3.3.0",
+    "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
     "graphql": "^15.5.1",
-    "nodemon": "^2.0.12"
+    "jsonwebtoken": "^8.5.1",
+    "nodemon": "^2.0.12",
+    "subscriptions-transport-ws": "^0.9.19"
   }
 }
