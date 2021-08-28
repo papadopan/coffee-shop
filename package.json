@@ -5,8 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "test": "nodemon tests/index.js"
   },
   "author": "papadopan",
   "license": "ISC",
@@ -14,6 +14,7 @@
     "@graphql-tools/graphql-file-loader": "^7.0.6",
     "@graphql-tools/load": "^7.1.9",
     "@graphql-tools/schema": "^8.1.2",
+    "@graphql-tools/utils": "^8.1.2",
     "apollo-server": "^3.3.0",
     "apollo-server-express": "^3.3.0",
     "bcryptjs": "^2.4.3",

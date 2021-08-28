@@ -15,13 +15,13 @@ const typeDefs = await loadSchema('./schemas/schema.graphql', {  // load from a 
       new GraphQLFileLoader()
   ]
 });
+// const schema = makeExecutableSchema(typeDefs, resolvers)
 
-const schema = makeExecutableSchema(typeDefs, resolvers)
 export async function startApolloServer() {
   const app = express()
   const httpServer = http.createServer(app)
 
-  const server = new ApolloServer({ schema});
+  const server = new ApolloServer({ typeDefs, resolvers });
   await server.start();
   server.applyMiddleware({app})
 
