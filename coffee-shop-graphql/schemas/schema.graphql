@@ -2,26 +2,41 @@
 
   interface User {
     name: String!
+    last: String!
+    date: String!
+    address: String!
   }
 
   type Waiter implements User {
     name: String! @upper(message:"Show me the name")
     id: String!
+    last: String!
+    date: String!
+    address: String!
   }
 
   input waiterInput {
     name: String!
     id: String!
+    last: String!
+    date: String!
+    address: String!
   }
 
   type Cook implements User {
     name: String!
     recipes: [Recipe]!
+    last: String!
+    date: String!
+    address: String!
   }
 
   input cookInput {
     name: String!
     recipes:[recipeInput]!
+    last: String!
+    date: String!
+    address: String!
   }
 
   input recipeInput {
